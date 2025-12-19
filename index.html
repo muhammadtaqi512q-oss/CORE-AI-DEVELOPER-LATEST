@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CORE AI DEVELOPER</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+/* ===================== GLOBAL ===================== */
+*{
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:'Poppins',sans-serif;
+  background:radial-gradient(circle at top,#1b1f3b,#05060f 70%);
+  color:#ffffff;
+  padding:30px;
+}
+
+/* ===================== HEADER ===================== */
+.header{
+  text-align:center;
+  margin-bottom:40px;
+}
+.header h1{
+  font-size:3.2rem;
+  font-weight:800;
+  background:linear-gradient(90deg,#00c6ff,#0072ff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:10px;
+}
+.header .company{
+  font-size:1.6rem;
+  font-weight:700;
+  color:#ff2b2b;
+  letter-spacing:3px;
+  text-shadow:0 0 12px rgba(255,43,43,0.7);
+}
+
+/* ===================== MENU BUTTON ===================== */
+#menuToggle{
+  position:fixed;
+  top:20px;
+  left:20px;
+  z-index:1001;
+  background:linear-gradient(135deg,#00c6ff,#0072ff);
+  color:#fff;
+  border:none;
+  padding:12px 20px;
+  font-size:16px;
+  font-weight:600;
+  border-radius:30px;
+  cursor:pointer;
+  box-shadow:0 10px 30px rgba(0,114,255,0.4);
+  transition:0.3s;
+}
+#menuToggle:hover{
+  transform:scale(1.05);
+  box-shadow:0 15px 40px rgba(0,114,255,0.6);
+}
+
+/* ===================== SIDE MENU ===================== */
+#sideMenu{
+  display:none;
+  position:fixed;
+  top:80px;
+  left:20px;
+  width:260px;
+  padding:18px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(18px);
+  box-shadow:0 25px 60px rgba(0,0,0,0.7);
+  z-index:1000;
+  animation:slideIn 0.4s ease;
+}
+@keyframes slideIn{
+  from{opacity:0;transform:translateX(-20px);}
+  to{opacity:1;transform:translateX(0);}
+}
+
+#sideMenu ul{
+  list-style:none;
+  padding:0;
+  margin:0;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+#sideMenu ul li a{
+  display:block;
+  padding:10px;
+  border-radius:12px;
+  text-decoration:none;
+  font-size:14px;
+  font-weight:500;
+  color:#fff;
+  background:linear-gradient(135deg,#1f6cff,#00c6ff);
+  transition:0.3s;
+  text-align:center;
+}
+#sideMenu ul li a:hover{
+  transform:translateX(6px);
+  background:linear-gradient(135deg,#00c6ff,#1f6cff);
+}
+
+/* ===================== CLOSE BUTTON ===================== */
+.closeMenu{
+  width:100%;
+  border:none;
+  padding:10px;
+  margin-bottom:12px;
+  border-radius:12px;
+  font-weight:600;
+  background:linear-gradient(135deg,#ff4b2b,#ff0000);
+  color:#fff;
+  cursor:pointer;
+  transition:0.3s;
+}
+.closeMenu:hover{
+  transform:scale(1.05);
+}
+
+/* ===================== CONTENT CARD ===================== */
+.content-box{
+  max-width:900px;
+  margin:auto;
+  padding:40px;
+  border-radius:25px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(14px);
+  box-shadow:0 30px 80px rgba(0,0,0,0.6);
+  text-align:center;
+}
+.content-box p{
+  font-size:1.1rem;
+  line-height:1.8;
+  color:#ddd;
+}
+</style>
+</head>
+
+<body>
+
+<button id="menuToggle">☰ Menu</button>
+
+<!-- SIDE MENU -->
+<nav id="sideMenu">
+  <button class="closeMenu">Close</button>
+ <ul>
+  <li><a href="#learn">Learn with scholarships</a></li>
+
+  <li><a href="https://course-of-core-ai-developer.oneapp.dev/" target="_blank">COURSE</a></li>
+
+  <li><a href="https://sites.google.com/view/mt-courses/home" target="_blank">HIGH COURSES</a></li>
+
+  <li><a href="https://core-ai-developer-partnership.oneapp.dev/" target="_blank">PARTNERSHIP</a></li>
+
+  <li><a href="#pay-fee">PAY FEE</a></li>
+
+  <li><a href="https://mt-boss-king1111.oneapp.dev/" target="_blank">LOGIN PROCESS</a></li>
+
+  <li><a href="https://certificate-done.oneapp.dev/" target="_blank">CERTIFICATE</a></li>
+
+  <li><a href="https://core-mt-download.oneapp.dev/" target="_blank">DOWNLOAD WEBSITE</a></li>
+
+  <li><a href="https://contact-with-mt.oneapp.dev/" target="_blank">CONTACT</a></li>
+
+  <li><a href="https://youtu.be/yhy9vT_r23E?si=7Hlq5u_caw71CJFh" target="_blank">YOUTUBE</a></li>
+
+  <li><a href="https://muhammadtaqi512q-oss.github.io/courses/" target="_blank">MORE COURSES</a></li>
+
+  <li><a href="https://fee-calculation-course.oneapp.dev/" target="_blank">3 COURSE FEE</a></li>
+
+  <li><a href="https://luck-chance.oneapp.dev/" target="_blank">LUCK SCHOLARSHIP</a></li>
+
+  <li><a href="https://ai-develoer-master.oneapp.dev/" target="_blank">AI COURSE FEE</a></li>
+
+  <li><a href="https://ai-creating-ahsj.oneapp.dev/" target="_blank">WITHOUT CODING AI COURSE</a></li>
+
+  <li><a href="https://chat-bot.oneapp.dev/" target="_blank">CHAT BOT</a></li>
+
+  <li><a href="https://mt-certificate.oneapp.dev/" target="_blank">CERTIFICATE HIGH</a></li>
+
+  <li><a href="https://fee-shdule-mt-done.oneapp.dev/" target="_blank">AI BUY PROCESS</a></li>
+
+  <li><a href="https://core-group-company.oneapp.dev/" target="_blank">COMPANY</a></li>
+
+  <li><a href="https://language-courses.oneapp.dev/" target="_blank">LANGUAGE COURSE</a></li>
+
+  <li><a href="https://kotlin-language.oneapp.dev/" target="_blank">KOTLIN LANGUAGE</a></li>
+
+  <li><a href="https://php-language.oneapp.dev/" target="_blank">PHP LANGUAGE</a></li>
+
+  <li><a href="https://mtcoursesmt.oneapp.dev/" target="_blank">COURSES 70+</a></li>
+
+  <li><a href="https://100pluscourses.oneapp.dev/" target="_blank">COURSES 100+</a></li>
+
+  <li><a href="https://mtking-azboss-zf.oneapp.dev/" target="_blank">COURSES (MAIN)</a></li>
+</ul>
+
+</nav>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>CORE AI DEVELOPER</h1>
+  <div class="company">CORE GROUP OF COMPANY</div>
+</div>
+
+<!-- CONTENT -->
+<div class="content-box">
+  <p>
+    Welcome to <b>CORE AI DEVELOPER</b>, a premium learning ecosystem powered by  
+    <span style="color:#ff2b2b;font-weight:700;">CORE GROUP OF COMPANY</span>.  
+    Learn advanced AI, development, and future technologies with world-class courses,
+    scholarships, and certifications.
+  </p>
+</div>
+
+<script>
+const menuToggle=document.getElementById('menuToggle');
+const sideMenu=document.getElementById('sideMenu');
+const closeBtn=document.querySelector('.closeMenu');
+
+menuToggle.onclick=()=>sideMenu.style.display='block';
+closeBtn.onclick=()=>sideMenu.style.display='none';
+
+document.addEventListener('click',e=>{
+  if(!sideMenu.contains(e.target)&&!menuToggle.contains(e.target)){
+    sideMenu.style.display='none';
+  }
+});
+</script>
+
+</body>
+</html>
