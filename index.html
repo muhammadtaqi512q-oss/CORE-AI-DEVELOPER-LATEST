@@ -1,283 +1,598 @@
 <!DOCTYPE html>
-<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CORE AI DEVELOPER</title>
-
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LYRA HUB – Created by Muhammad Taqi</title>
+<!-- PeerJS for P2P Sync -->
+<script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
 <style>
-/* ===================== GLOBAL ===================== */
-*{
-  box-sizing:border-box;
-  scroll-behavior:smooth;
-}
-body{
-  margin:0;
-  min-height:100vh;
-  font-family:'Poppins',sans-serif;
-  background:radial-gradient(circle at top,#1b1f3b,#05060f 70%);
-  color:#ffffff;
-  padding:30px;
-}
-
-/* ===================== HEADER ===================== */
-.header{
-  text-align:center;
-  margin-bottom:40px;
-}
-.header h1{
-  font-size:3.2rem;
-  font-weight:800;
-  background:linear-gradient(90deg,#00c6ff,#0072ff);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  margin-bottom:10px;
-}
-.header .company{
-  font-size:1.6rem;
-  font-weight:700;
-  color:#ff2b2b;
-  letter-spacing:3px;
-  text-shadow:0 0 12px rgba(255,43,43,0.7);
-}
-
-/* ===================== MENU BUTTONS ===================== */
-.menuToggle {
-  position: fixed;
-  top: 20px;
-  padding: 12px 20px;
-  font-size: 16px;
-  font-weight: 600;
-  border-radius: 30px;
-  cursor: pointer;
-  box-shadow: 0 10px 30px rgba(0, 114, 255, 0.4);
-  transition: 0.3s;
-  color: #fff;
-  background: linear-gradient(135deg,#00c6ff,#0072ff);
-  border: none;
-  z-index: 1001;
-}
-#menuToggle1 {
-  left: 20px;
-}
-#menuToggle2 {
-  left: 120px;
-}
-#menuToggle3 {
-  left: 220px;
-}
-.menuToggle:hover{
-  transform:scale(1.05);
-  box-shadow:0 15px 40px rgba(0,114,255,0.6);
-}
-
-/* ===================== SIDE MENUS ===================== */
-.sideMenu{
-  display:none;
-  position:fixed;
-  top:80px;
-  width:260px;
-  padding:18px;
-  border-radius:20px;
-  background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(18px);
-  box-shadow:0 25px 60px rgba(0,0,0,0.7);
-  z-index:1000;
-  animation:slideIn 0.4s ease;
-}
-#sideMenu1 {
-  left: 20px;
-}
-#sideMenu2 {
-  left: 120px;
-}
-#sideMenu3 {
-  left: 220px;
-}
-@keyframes slideIn{
-  from{opacity:0;transform:translateX(-20px);}
-  to{opacity:1;transform:translateX(0);}
-}
-
-.sideMenu ul{
-  list-style:none;
-  padding:0;
-  margin:0;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.sideMenu ul li a{
-  display:block;
-  padding:10px;
-  border-radius:12px;
-  text-decoration:none;
-  font-size:14px;
-  font-weight:500;
-  color:#fff;
-  background:linear-gradient(135deg,#1f6cff,#00c6ff);
-  transition:0.3s;
-  text-align:center;
-}
-.sideMenu ul li a:hover{
-  transform:translateX(6px);
-  background:linear-gradient(135deg,#00c6ff,#1f6cff);
-}
-
-/* ===================== CLOSE BUTTON ===================== */
-.closeMenu{
-  width:100%;
-  border:none;
-  padding:10px;
-  margin-bottom:12px;
-  border-radius:12px;
-  font-weight:600;
-  background:linear-gradient(135deg,#ff4b2b,#ff0000);
-  color:#fff;
-  cursor:pointer;
-  transition:0.3s;
-}
-.closeMenu:hover{
-  transform:scale(1.05);
-}
-
-/* ===================== CONTENT CARD ===================== */
-.content-box{
-  max-width:900px;
-  margin:auto;
-  padding:40px;
-  border-radius:25px;
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(14px);
-  box-shadow:0 30px 80px rgba(0,0,0,0.6);
-  text-align:center;
-}
-.content-box p{
-  font-size:1.1rem;
-  line-height:1.8;
-  color:#ddd;
-}
+:root{--bg:#0a0e1a;--bg-alt:#0f1424;--card:#151b2b;--border:#232c45;--accent:#6c63ff;--accent-2:#00d4ff;--accent-glow:rgba(108,99,255,.35);--success:#22c55e;--danger:#ef4444;--text:#e6e9f0;--text-dim:#94a3b8;--radius:14px;--shadow:0 8px 24px rgba(0,0,0,.45);--transition:.25s ease}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;background:radial-gradient(1200px 600px at 10% -10%,rgba(108,99,255,.15),transparent 60%),radial-gradient(1000px 500px at 90% 0%,rgba(0,212,255,.12),transparent 60%),var(--bg);color:var(--text);min-height:100vh;line-height:1.55;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:var(--bg-alt)}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--accent),var(--accent-2));border-radius:10px}
+header{padding:28px 20px 18px;text-align:center;position:relative;overflow:hidden}
+header::after{content:"";position:absolute;inset:auto 0 0 0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.6}
+header h1{margin:0;font-size:clamp(2rem,5vw,3rem);font-weight:800;letter-spacing:2px;background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent));background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 6s linear infinite}
+@keyframes shimmer{0%{background-position:0% center}100%{background-position:200% center}}
+header p{margin:6px 0 0;font-size:.95rem;color:var(--text-dim)}
+header p strong{color:var(--accent-2);letter-spacing:1px}
+header p:last-child{font-size:.8rem;letter-spacing:2px;text-transform:uppercase;opacity:.7;margin-top:4px}
+.container{max-width:1100px;margin:24px auto;padding:0 16px 60px}
+.card{background:linear-gradient(180deg,var(--card),var(--bg-alt));border:1px solid var(--border);border-radius:var(--radius);padding:22px;margin-bottom:22px;box-shadow:var(--shadow);animation:fadeUp .4s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card h2{font-size:1.35rem;margin-bottom:12px;color:var(--text);display:flex;align-items:center;gap:8px}
+.card h3{font-size:1.05rem;margin:4px 0 10px;color:var(--accent-2)}
+.topbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+input,textarea{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:#0b1120;color:var(--text);font-size:1rem;font-family:inherit;transition:border-color var(--transition),box-shadow var(--transition);outline:none}
+input::placeholder,textarea::placeholder{color:#64748b}
+input:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+textarea{min-height:220px;font-family:"Fira Code","Courier New",monospace;font-size:.92rem;line-height:1.5;resize:vertical}
+button{background:linear-gradient(135deg,var(--accent),#8a7dff);color:#fff;border:none;padding:11px 20px;border-radius:10px;font-size:.95rem;font-weight:600;letter-spacing:.4px;cursor:pointer;margin:6px 6px 6px 0;transition:transform var(--transition),box-shadow var(--transition),opacity var(--transition);box-shadow:0 4px 14px var(--accent-glow)}
+button:hover{transform:translateY(-2px);box-shadow:0 8px 22px var(--accent-glow);opacity:.95}
+button:active{transform:translateY(0)}
+button:disabled{opacity:.5;cursor:not-allowed;transform:none}
+button.secondary{background:#2a3350;box-shadow:none}
+button.secondary:hover{background:#374267}
+#status,#editorStatus{font-size:.88rem;color:var(--text-dim);margin:8px 0 0;min-height:1.2em}
+#editorStatus{color:var(--success)}
+#userEntry{max-width:460px;margin:20px auto;text-align:center}
+#userEntry h2{justify-content:center}
+#userEntry input{text-align:center;font-size:1.05rem;margin:8px 0 14px}
+#joinBtn{width:100%;font-size:1.05rem;padding:13px}
+#codeEditor{display:none;margin-top:18px;padding-top:16px;border-top:1px dashed var(--border);animation:fadeUp .35s ease both}
+#codeEditor h3{font-size:1rem;font-weight:500;color:var(--text-dim);margin-bottom:10px}
+#codeEditor h3 code{color:var(--accent-2);background:rgba(0,212,255,.08);padding:2px 8px;border-radius:6px;font-size:.9rem}
+.app-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;margin-top:12px}
+.app-item{background:#0b1120;border:1px solid var(--border);border-radius:12px;padding:16px;transition:transform var(--transition),border-color var(--transition),box-shadow var(--transition);display:flex;flex-direction:column;gap:6px}
+.app-item:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 10px 24px rgba(108,99,255,.15)}
+.app-item h3{margin:0;color:var(--accent-2);font-size:1.1rem;word-break:break-word}
+.app-item small{color:var(--text-dim);font-size:.8rem}
+.app-item .btn-row{display:flex;gap:8px;margin-top:8px}
+.app-item button{font-size:.85rem;padding:8px 12px;flex:1;margin:0}
+#noAppsMsg{color:var(--text-dim);font-style:italic;padding:14px 0}
+#runnerArea{display:none;animation:fadeUp .4s ease both}
+#appIframe{width:100%;height:620px;border:1px solid var(--border);border-radius:12px;background:#fff;margin-top:14px;box-shadow:0 6px 18px rgba(0,0,0,.4)}
+#runnerTitle{color:var(--accent-2);font-size:1.15rem;word-break:break-word}
+@media(max-width:720px){header{padding:20px 14px 14px}.container{margin:14px auto;padding:0 12px 40px}.card{padding:16px}.card h2{font-size:1.15rem}#appIframe{height:480px}.app-list{grid-template-columns:1fr}}
+@media(max-width:420px){header h1{font-size:1.7rem}#appIframe{height:400px}}
+::selection{background:var(--accent);color:#fff}
 </style>
 </head>
-
 <body>
 
-<button id="menuToggle1" class="menuToggle">☰ Menu 1</button>
-<button id="menuToggle2" class="menuToggle">☰ Menu 2</button>
-<button id="menuToggle3" class="menuToggle">☰ Menu 3</button>
+<header>
+  <h1>LYRA HUB</h1>
+  <p>Created by <strong>MUHAMMAD TAQI</strong></p>
+  <p>P2P · Python · Flask · PeerJS</p>
+</header>
 
-<!-- SIDE MENU 1 -->
-<nav id="sideMenu1" class="sideMenu">
-  <button class="closeMenu">Close</button>
-  <ul>
-    <li><a href="#learn">Learn with scholarships</a></li>
-    <li><a href="https://course-of-core-ai-developer.oneapp.dev/" target="_blank">COURSE</a></li>
-    <li><a href="https://sites.google.com/view/mt-courses/home" target="_blank">HIGH COURSES</a></li>
-    <li><a href="https://core-ai-developer-partnership.oneapp.dev/" target="_blank">PARTNERSHIP</a></li>
-    <li><a href="#pay-fee">PAY FEE</a></li>
-    <li><a href="https://mt-boss-king1111.oneapp.dev/" target="_blank">LOGIN PROCESS</a></li>
-    <li><a href="https://certificate-done.oneapp.dev/" target="_blank">CERTIFICATE</a></li>
-    <li><a href="https://core-mt-download.oneapp.dev/" target="_blank">DOWNLOAD WEBSITE</a></li>
-  </ul>
-</nav>
+<div class="container">
+  <!-- USER ENTRY -->
+  <div id="userEntry" class="card">
+    <h2>Enter Your Name</h2>
+    <input id="userNameInput" placeholder="Unique name (e.g. taqi_dev)" />
+    <button id="joinBtn">Join LYRA HUB</button>
+    <p id="status"></p>
+  </div>
 
-<!-- SIDE MENU 2 -->
-<nav id="sideMenu2" class="sideMenu">
-  <button class="closeMenu">Close</button>
-  <ul>
-    <li><a href="https://contact-with-mt.oneapp.dev/" target="_blank">CONTACT</a></li>
-    <li><a href="https://youtu.be/yhy9vT_r23E?si=7Hlq5u_caw71CJFh" target="_blank">YOUTUBE</a></li>
-    <li><a href="https://muhammadtaqi512q-oss.github.io/courses/" target="_blank">MORE COURSES</a></li>
-    <li><a href="https://fee-calculation-course.oneapp.dev/" target="_blank">3 COURSE FEE</a></li>
-    <li><a href="https://luck-chance.oneapp.dev/" target="_blank">LUCK SCHOLARSHIP</a></li>
-    <li><a href="https://ai-develoer-master.oneapp.dev/" target="_blank">AI COURSE FEE</a></li>
-    <li><a href="https://ai-creating-ahsj.oneapp.dev/" target="_blank">WITHOUT CODING AI COURSE</a></li>
-    <li><a href="https://chat-bot.oneapp.dev/" target="_blank">CHAT BOT</a></li>
-  </ul>
-</nav>
+  <!-- MAIN AREA -->
+  <div id="mainArea" style="display:none;">
+    <div class="card">
+      <div class="topbar">
+        <h2>Welcome, <span id="displayName"></span></h2>
+        <button id="makeAppBtn">+ Make App</button>
+      </div>
+      <div id="codeEditor">
+        <h3>Write your <code>app.py</code> (Flask / Python)</h3>
+        <textarea id="appCode" placeholder="from flask import Flask&#10;app = Flask(__name__)&#10;&#10;@app.route('/')&#10;def home():&#10;    return '<h1 style=color:purple>Hello from LYRA HUB!</h1>'&#10;&#10;@app.route('/about')&#10;def about():&#10;    return '<h2>About Page</h2><p>Built by you.</p>'"></textarea>
+        <button id="publishBtn">🚀 Publish App</button>
+        <button id="cancelEditorBtn" class="secondary">Cancel</button>
+        <p id="editorStatus"></p>
+      </div>
+    </div>
 
-<!-- SIDE MENU 3 -->
-<nav id="sideMenu3" class="sideMenu">
-  <button class="closeMenu">Close</button>
-  <ul>
-    <li><a href="https://mt-certificate.oneapp.dev/" target="_blank">CERTIFICATE HIGH</a></li>
-    <li><a href="https://fee-shdule-mt-done.oneapp.dev/" target="_blank">AI BUY PROCESS</a></li>
-    <li><a href="https://core-group-company.oneapp.dev/" target="_blank">COMPANY</a></li>
-    <li><a href="https://language-courses.oneapp.dev/" target="_blank">LANGUAGE COURSE</a></li>
-    <li><a href="https://kotlin-language.oneapp.dev/" target="_blank">KOTLIN LANGUAGE</a></li>
-    <li><a href="https://php-language.oneapp.dev/" target="_blank">PHP LANGUAGE</a></li>
-    <li><a href="https://mtcoursesmt.oneapp.dev/" target="_blank">COURSES 70+</a></li>
-    <li><a href="https://100pluscourses.oneapp.dev/" target="_blank">COURSES 100+</a></li>
-  </ul>
-</nav>
+    <div class="card">
+      <h2>🌐 Published Apps</h2>
+      <div id="appsList" class="app-list"></div>
+      <p id="noAppsMsg">No apps yet. Be the first!</p>
+    </div>
 
-<!-- HEADER -->
-<div class="header">
-  <h1>CORE AI DEVELOPER</h1>
-  <div class="company">CORE GROUP OF COMPANY</div>
-</div>
-
-<!-- CONTENT -->
-<div class="content-box">
-  <p>
-    Welcome to <b>CORE AI DEVELOPER</b>, a premium learning ecosystem powered by  
-    <span style="color:#ff2b2b;font-weight:700;">CORE GROUP OF COMPANY</span>.  
-    Learn advanced AI, development, and future technologies with world-class courses,
-    scholarships, and certifications.
-  </p>
+    <div id="runnerArea" class="card">
+      <div class="topbar">
+        <h2 id="runnerTitle">Running App</h2>
+        <button id="closeRunnerBtn" class="secondary">✖ Close</button>
+      </div>
+      <iframe id="appIframe" sandbox="allow-scripts" title="App runner"></iframe>
+    </div>
+  </div>
 </div>
 
 <script>
-const menuToggle1 = document.getElementById('menuToggle1');
-const sideMenu1 = document.getElementById('sideMenu1');
-const closeBtn1 = sideMenu1.querySelector('.closeMenu');
+/* ============================================================
+   LYRA HUB – Full Logic
+   ============================================================ */
 
-const menuToggle2 = document.getElementById('menuToggle2');
-const sideMenu2 = document.getElementById('sideMenu2');
-const closeBtn2 = sideMenu2.querySelector('.closeMenu');
+// ---------- STATE ----------
+let myPeer = null;
+let myPeerId = null;
+let myName = null;
+let isHub = false;
+let hubConn = null;
+let connections = [];
+let connectedPeers = new Map();
+let publishedApps = [];
 
-const menuToggle3 = document.getElementById('menuToggle3');
-const sideMenu3 = document.getElementById('sideMenu3');
-const closeBtn3 = sideMenu3.querySelector('.closeMenu');
+const HUB_ID = 'lyra-hub-main-v1';
 
-menuToggle1.onclick = () => {
-  sideMenu1.style.display = 'block';
-  sideMenu2.style.display = 'none';
-  sideMenu3.style.display = 'none';
-};
-closeBtn1.onclick = () => sideMenu1.style.display = 'none';
+// ---------- DOM ----------
+const $ = id => document.getElementById(id);
+const userEntry = $('userEntry');
+const mainArea = $('mainArea');
+const userNameInput = $('userNameInput');
+const joinBtn = $('joinBtn');
+const statusEl = $('status');
+const displayName = $('displayName');
+const makeAppBtn = $('makeAppBtn');
+const codeEditor = $('codeEditor');
+const appCode = $('appCode');
+const publishBtn = $('publishBtn');
+const cancelEditorBtn = $('cancelEditorBtn');
+const editorStatus = $('editorStatus');
+const appsList = $('appsList');
+const noAppsMsg = $('noAppsMsg');
+const runnerArea = $('runnerArea');
+const runnerTitle = $('runnerTitle');
+const appIframe = $('appIframe');
+const closeRunnerBtn = $('closeRunnerBtn');
 
-menuToggle2.onclick = () => {
-  sideMenu2.style.display = 'block';
-  sideMenu1.style.display = 'none';
-  sideMenu3.style.display = 'none';
-};
-closeBtn2.onclick = () => sideMenu2.style.display = 'none';
+// ---------- RUNNER IFRAME STATE ----------
+let iframeLoaded = false;
+let iframeReadyResolve = null;
 
-menuToggle3.onclick = () => {
-  sideMenu3.style.display = 'block';
-  sideMenu1.style.display = 'none';
-  sideMenu2.style.display = 'none';
-};
-closeBtn3.onclick = () => sideMenu3.style.display = 'none';
+// ---------- RUNNER HTML (srcdoc content) ----------
+function getRunnerHTML() {
+  return `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:#fff;color:#111;padding:18px;line-height:1.5}
+  #loading{color:#666;font-style:italic}
+  .tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+  .tab{padding:8px 14px;border-radius:8px;background:#eef0f5;cursor:pointer;font-size:.85rem;border:none;color:#333}
+  .tab.active{background:#6c63ff;color:#fff}
+  .content{padding:16px;background:#fafafa;border-radius:8px;border:1px solid #eee;min-height:60px}
+  .error{color:#c00;padding:12px;background:#fee;border-radius:6px}
+  pre{background:#111;color:#0f0;padding:12px;border-radius:6px;overflow:auto;font-size:.82rem}
+</style>
+<!-- Load Pyodide via a reliable CDN -->
+<script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+</head>
+<body>
+<div id="root"><div id="loading">Loading Python environment…</div></div>
+<script>
+let pyodide = null;
+let ready = false;
 
-document.addEventListener('click', e => {
-  if (
-    !sideMenu1.contains(e.target) 
-    && !menuToggle1.contains(e.target)
-    && !sideMenu2.contains(e.target)
-    && !menuToggle2.contains(e.target)
-    && !sideMenu3.contains(e.target)
-    && !menuToggle3.contains(e.target)
-  ) {
-    sideMenu1.style.display = 'none';
-    sideMenu2.style.display = 'none';
-    sideMenu3.style.display = 'none';
+async function init() {
+  // Check if the script loaded correctly
+  if (typeof window.loadPyodide !== 'function') {
+    document.getElementById('root').innerHTML =
+      '<div class="error">Error: Pyodide script failed to load from CDN. Check your internet connection or ad-blocker.</div>';
+    return;
+  }
+
+  try {
+    // Use window.loadPyodide to avoid any scope issues
+    pyodide = await window.loadPyodide();
+    ready = true;
+    document.getElementById('root').innerHTML = '<div id="loading">Python ready. Waiting…</div>';
+    window.parent.postMessage({ type: 'runner-ready' }, '*');
+  } catch (e) {
+    document.getElementById('root').innerHTML =
+      '<div class="error">Python load failed: ' + e.message + '</div>';
+  }
+}
+
+// Wait for the DOM and script to be fully ready
+if (document.readyState === 'complete') {
+  init();
+} else {
+  window.addEventListener('load', init);
+}
+
+window.addEventListener('message', async e => {
+  if (e.data && e.data.type === 'run-app') {
+    if (!ready) {
+      window.parent.postMessage({ type: 'runner-error', message: 'Python is still loading. Please wait a moment.' }, '*');
+      return;
+    }
+    await runCode(e.data.code);
   }
 });
+
+async function runCode(userCode) {
+  document.getElementById('root').innerHTML = '<div id="loading">Running…</div>';
+  
+  const shim = \`
+import sys, types, json, io, contextlib
+class _Flask:
+    def __init__(self, name, *a, **kw):
+        self.name = name
+        self.routes = {}
+    def route(self, path, methods=['GET']):
+        def d(fn):
+            self.routes[path] = fn
+            return fn
+        return d
+    def add_url_rule(self, path, endpoint, fn, **kw):
+        self.routes[path] = fn
+    def run(self, *a, **kw):
+        pass
+def _jsonify(*a, **kw):
+    return json.dumps(a[0] if a else kw)
+def _render_template(name, **ctx):
+    return '<div style="padding:12px;background:#f8f8f8;border-radius:6px"><strong>Template:</strong> ' + str(name) + '</div>'
+class _Request:
+    args = {}
+    form = {}
+    data = b''
+    method = 'GET'
+    path = '/'
+    def get_json(self):
+        return {}
+flask_mod = types.ModuleType('flask')
+flask_mod.Flask = _Flask
+flask_mod.jsonify = _jsonify
+flask_mod.render_template = _render_template
+flask_mod.request = _Request()
+sys.modules['flask'] = flask_mod
+_captured = io.StringIO()
+_g = {}
+_error = None
+with contextlib.redirect_stdout(_captured):
+    try:
+        exec(USER_CODE, _g)
+    except Exception as e:
+        _error = str(e)
+_app = None
+for _n, _o in _g.items():
+    if isinstance(_o, _Flask):
+        _app = _o
+        break
+_routes = {}
+if _app:
+    for _p, _f in _app.routes.items():
+        try:
+            _r = _f()
+            _routes[_p] = '' if _r is None else str(_r)
+        except Exception as e:
+            _routes[_p] = '<div style="color:#c00">Error on ' + _p + ': ' + str(e) + '</div>'
+_result_data = json.dumps({'routes': _routes, 'stdout': _captured.getvalue(), 'error': _error})
+\`;
+
+  try {
+    pyodide.globals.set('USER_CODE', userCode);
+    await pyodide.runPythonAsync(shim);
+    const raw = pyodide.globals.get('_result_data');
+    const result = JSON.parse(raw);
+    render(result);
+  } catch (e) {
+    document.getElementById('root').innerHTML = '<div class="error">Error: ' + e.message + '</div>';
+  }
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+}
+
+function render(result) {
+  const root = document.getElementById('root');
+  let html = '';
+  if (result.error) {
+    html += '<div class="error">Python error: ' + escapeHtml(result.error) + '</div>';
+  }
+  const routeKeys = Object.keys(result.routes || {});
+  if (routeKeys.length > 0) {
+    html += '<div class="tabs">';
+    routeKeys.forEach((r, i) => {
+      html += '<button class="tab' + (i === 0 ? ' active' : '') + '" data-route="' + escapeHtml(r) + '">' + escapeHtml(r) + '</button>';
+    });
+    html += '</div>';
+    html += '<div class="content" id="content"></div>';
+  }
+  if (result.stdout) {
+    html += '<h3 style="margin-top:16px;font-size:.9rem;color:#666">Console Output:</h3>';
+    html += '<pre>' + escapeHtml(result.stdout) + '</pre>';
+  }
+  if (!html) {
+    html = '<div style="color:#888">No output. Did your app define any Flask routes?</div>';
+  }
+  root.innerHTML = html;
+  const content = document.getElementById('content');
+  if (content && routeKeys.length) {
+    content.innerHTML = result.routes[routeKeys[0]];
+    document.querySelectorAll('.tab').forEach(t => {
+      t.onclick = () => {
+        document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+        t.classList.add('active');
+        content.innerHTML = result.routes[t.dataset.route];
+      };
+    });
+  }
+}
+<\/script>
+</body>
+</html>`;
+}
+
+// ---------- MESSAGE FROM IFRAME ----------
+window.addEventListener('message', (e) => {
+  if (!e.data) return;
+  if (e.data.type === 'runner-ready') {
+    if (iframeReadyResolve) {
+      iframeReadyResolve();
+      iframeReadyResolve = null;
+    }
+  }
+  if (e.data.type === 'runner-error') {
+    alert('Runner error: ' + e.data.message);
+  }
+});
+
+// ---------- JOIN ----------
+joinBtn.onclick = async () => {
+  const name = userNameInput.value.trim();
+  if (!name) return alert('Please enter a name.');
+  if (name.length < 3) return alert('Name must be at least 3 characters.');
+
+  myName = name;
+  joinBtn.disabled = true;
+  statusEl.textContent = 'Connecting…';
+
+  myPeer = new Peer(undefined, {
+    debug: 1,
+    config: { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] }
+  });
+
+  myPeer.on('open', (id) => {
+    myPeerId = id;
+    claimHub();
+  });
+
+  myPeer.on('error', (err) => {
+    console.error('PeerJS error:', err);
+    if (err.type === 'unavailable-id') {
+      becomePeer();
+    } else if (err.type === 'network' || err.type === 'server-error') {
+      finishJoinOffline();
+    } else {
+      statusEl.textContent = 'Error: ' + err.type;
+    }
+  });
+};
+
+function claimHub() {
+  myPeer.destroy();
+  myPeer = new Peer(HUB_ID, {
+    debug: 1,
+    config: { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] }
+  });
+  myPeer.on('open', () => {
+    isHub = true;
+    finishJoin();
+  });
+  myPeer.on('error', (err) => {
+    if (err.type === 'unavailable-id') {
+      becomePeer();
+    } else {
+      finishJoinOffline();
+    }
+  });
+  myPeer.on('connection', handleIncoming);
+}
+
+function becomePeer() {
+  isHub = false;
+  myPeer.destroy();
+  myPeer = new Peer(undefined, {
+    debug: 1,
+    config: { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] }
+  });
+  myPeer.on('open', (id) => {
+    myPeerId = id;
+    connectToHub();
+  });
+  myPeer.on('connection', handleIncoming);
+}
+
+function connectToHub() {
+  hubConn = myPeer.connect(HUB_ID, { reliable: true });
+  hubConn.on('open', () => {
+    hubConn.send({ type: 'register', name: myName });
+    finishJoin();
+  });
+  hubConn.on('data', handleHubMsg);
+  hubConn.on('close', () => {
+    statusEl.textContent = 'Hub disconnected. Retrying…';
+    setTimeout(connectToHub, 2500);
+  });
+}
+
+function finishJoin() {
+  userEntry.style.display = 'none';
+  mainArea.style.display = 'block';
+  displayName.textContent = myName;
+  statusEl.textContent = isHub ? 'Hosting as HUB' : 'Connected';
+  renderApps();
+}
+
+function finishJoinOffline() {
+  userEntry.style.display = 'none';
+  mainArea.style.display = 'block';
+  displayName.textContent = myName + ' (offline)';
+  statusEl.textContent = 'Offline mode';
+  renderApps();
+}
+
+// ---------- HUB HANDLING ----------
+function handleIncoming(conn) {
+  if (!isHub) return;
+  conn.on('open', () => {
+    connections.push(conn);
+    conn.on('data', (data) => {
+      if (data.type === 'register') {
+        const names = Array.from(connectedPeers.values()).map(p => p.name);
+        if (names.includes(data.name) || data.name === myName) {
+          conn.send({ type: 'register-error', message: 'Name already taken. Choose another.' });
+          setTimeout(() => conn.close(), 100);
+          return;
+        }
+        connectedPeers.set(conn.peer, { name: data.name, conn });
+        conn.send({ type: 'apps-sync', apps: publishedApps });
+        conn.send({ type: 'registered', name: data.name });
+      } else if (data.type === 'publish-app') {
+        publishedApps.push(data.app);
+        broadcast({ type: 'apps-sync', apps: publishedApps });
+        renderApps();
+      }
+    });
+  });
+  conn.on('close', () => {
+    connections = connections.filter(c => c !== conn);
+    connectedPeers.delete(conn.peer);
+  });
+}
+
+function broadcast(msg) {
+  if (!isHub) return;
+  connections.forEach(c => { if (c.open) c.send(msg); });
+}
+
+// ---------- PEER HANDLING ----------
+function handleHubMsg(data) {
+  if (data.type === 'apps-sync') {
+    publishedApps = data.apps || [];
+    renderApps();
+  } else if (data.type === 'register-error') {
+    alert(data.message);
+    myPeer.destroy();
+    userEntry.style.display = 'block';
+    mainArea.style.display = 'none';
+    joinBtn.disabled = false;
+    statusEl.textContent = '';
+  }
+}
+
+// ---------- MAKE APP ----------
+makeAppBtn.onclick = () => {
+  codeEditor.style.display = 'block';
+  makeAppBtn.style.display = 'none';
+  appCode.focus();
+};
+
+cancelEditorBtn.onclick = () => {
+  codeEditor.style.display = 'none';
+  makeAppBtn.style.display = 'inline-block';
+  editorStatus.textContent = '';
+};
+
+// ---------- PUBLISH ----------
+publishBtn.onclick = () => {
+  const code = appCode.value.trim();
+  if (!code) return alert('Write some code first.');
+  const appName = prompt('App name:');
+  if (!appName || !appName.trim()) return;
+
+  // Prevent duplicate app name by same author
+  if (publishedApps.some(a => a.author === myName && a.name.toLowerCase() === appName.trim().toLowerCase())) {
+    return alert('You already published an app with this name.');
+  }
+
+  const app = {
+    id: 'app_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7),
+    name: appName.trim(),
+    author: myName,
+    code,
+    createdAt: new Date().toISOString()
+  };
+
+  if (isHub) {
+    publishedApps.push(app);
+    broadcast({ type: 'apps-sync', apps: publishedApps });
+    renderApps();
+  } else if (hubConn && hubConn.open) {
+    hubConn.send({ type: 'publish-app', app });
+  } else {
+    publishedApps.push(app);
+    renderApps();
+  }
+
+  editorStatus.textContent = '✅ Published!';
+  codeEditor.style.display = 'none';
+  makeAppBtn.style.display = 'inline-block';
+  appCode.value = '';
+  setTimeout(() => editorStatus.textContent = '', 2000);
+};
+
+// ---------- RENDER APPS ----------
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+}
+
+function renderApps() {
+  appsList.innerHTML = '';
+  if (publishedApps.length === 0) {
+    noAppsMsg.style.display = 'block';
+    return;
+  }
+  noAppsMsg.style.display = 'none';
+  publishedApps.forEach(app => {
+    const div = document.createElement('div');
+    div.className = 'app-item';
+    div.innerHTML = `
+      <h3>${escapeHtml(app.name)}</h3>
+      <small>by ${escapeHtml(app.author)}</small>
+      <div class="btn-row">
+        <button onclick="window.__runApp('${app.id}')">▶ Run</button>
+        <button class="secondary" onclick="window.__viewCode('${app.id}')">📄 Code</button>
+      </div>
+    `;
+    appsList.appendChild(div);
+  });
+}
+
+// ---------- RUN APP ----------
+window.__runApp = async function (appId) {
+  const app = publishedApps.find(a => a.id === appId);
+  if (!app) return;
+
+  runnerArea.style.display = 'block';
+  runnerTitle.textContent = 'Running: ' + app.name;
+
+  if (!iframeLoaded) {
+    iframeLoaded = true;
+    const readyPromise = new Promise(r => { iframeReadyResolve = r; });
+    appIframe.srcdoc = getRunnerHTML();
+    await readyPromise;
+  }
+
+  appIframe.contentWindow.postMessage({ type: 'run-app', code: app.code }, '*');
+};
+
+closeRunnerBtn.onclick = () => {
+  runnerArea.style.display = 'none';
+};
+
+window.__viewCode = function (appId) {
+  const app = publishedApps.find(a => a.id === appId);
+  if (!app) return;
+  alert('📄 ' + app.name + ' by ' + app.author + '\n\n' + app.code);
+};
 </script>
 
 </body>
