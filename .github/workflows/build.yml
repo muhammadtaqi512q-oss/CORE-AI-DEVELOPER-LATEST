@@ -1,0 +1,124 @@
+name: Lyra Hub — Quick Tunnel + Counter
+
+on:
+  schedule:
+    # Har 5 ghante: 00:00, 05:00, 10:00, 15:00, 20:00 UTC
+    - cron: '0 */5 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write   # README + dummy.txt commit/push ke liye zaroori
+
+concurrency:
+  group: lyra-hub
+  cancel-in-progress: true   # naya run purana tunnel band kar dega
+
+jobs:
+  serve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350     # max 6h se kam
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Flask
+        run: |
+          python -m pip install --upgrade pip
+          pip install flask
+
+      - name: Install cloudflared
+        run: |
+          curl -L --output cloudflared.deb \
+            https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+          sudo dpkg -i cloudflared.deb
+
+      - name: Increment dummy.txt (1 → 2 → 3 ...)
+        run: |
+          COUNT=$(cat dummy.txt 2>/dev/null || echo 0)
+          COUNT=$((COUNT + 1))
+          echo "$COUNT" > dummy.txt
+          echo "dummy.txt updated -> $COUNT"
+
+      - name: Start Flask + Quick Tunnel, update README, keep alive
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+
+          # 1) Flask start
+          nohup python app.py > /tmp/flask.log 2>&1 &
+          sleep 3
+
+          # 2) Cloudflare Quick Tunnel start (NO API / NO ACCOUNT)
+          nohup cloudflared tunnel --url http://localhost:5000 \
+            --logfile /tmp/cloudflared.log \
+            --metrics localhost:55555 > /tmp/cf.out 2>&1 &
+
+          # 3) trycloudflare URL extract
+          URL=""
+          for i in $(seq 1 40); do
+            URL=$(grep -ohE 'https://[a-zA-Z0-9.-]+\.trycloudflare\.com' \
+              /tmp/cloudflared.log /tmp/cf.out 2>/dev/null | head -n1 || true)
+            [ -n "$URL" ] && break
+            sleep 1
+          done
+
+          if [ -z "$URL" ]; then
+            echo "Tunnel URL nahi mila. Logs:"
+            cat /tmp/cloudflared.log || true
+            exit 1
+          fi
+
+          echo "LIVE URL: $URL"
+
+          # 4) README.md mein URL likho
+          python - "$URL" <<'PY'
+          import re, sys, pathlib
+
+          url = sys.argv[1]
+          p = pathlib.Path("README.md")
+
+          if not p.exists():
+              p.write_text(
+                  "# Lyra Hub\n\n"
+                  "## 🌐 Live URL\n"
+                  "<!-- LIVE_URL_START -->\n"
+                  "<!-- LIVE_URL_END -->\n"
+              )
+
+          text = p.read_text(encoding="utf-8")
+          block = (
+              "<!-- LIVE_URL_START -->\n\n"
+              f"**{url}**\n\n"
+              "<!-- LIVE_URL_END -->"
+          )
+          text = re.sub(
+              r"<!-- LIVE_URL_START -->.*?<!-- LIVE_URL_END -->",
+              block,
+              text,
+              flags=re.S,
+          )
+          p.write_text(text, encoding="utf-8")
+          print("README updated with URL:", url)
+          PY
+
+          # 5) Commit + push (README + dummy.txt)
+          git config user.name "lyra-bot"
+          git config user.email "lyra-bot@users.noreply.github.com"
+          git add README.md dummy.txt
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: update tunnel URL and dummy counter [skip ci]"
+            git pull --rebase origin "${GITHUB_REF_NAME}" || true
+            git push origin "HEAD:${GITHUB_REF_NAME}" || true
+          fi
+
+          # 6) Tunnel ko zinda rakho agle run tak
+          echo "Tunnel live: $URL — sleeping ~4h55m"
+          sleep 4h55m
