@@ -6,7 +6,7 @@ Shared Python playground — Flask + HTML ek hi `app.py` mein.
 
 <!-- LIVE_URL_START -->
 
-_(Pehli baar workflow chalne ke baad yahan trycloudflare URL automatically aa jayega.)_
+**https://linux-thinking-firewire-searches.trycloudflare.com**
 
 <!-- LIVE_URL_END -->
 
