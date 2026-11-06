@@ -6,7 +6,7 @@ Shared Python playground — Flask + HTML ek hi `app.py` mein.
 
 <!-- LIVE_URL_START -->
 
-**https://enters-cordless-kansas-rugby.trycloudflare.com**
+**https://shaped-nowhere-judgment-themselves.trycloudflare.com**
 
 <!-- LIVE_URL_END -->
 
