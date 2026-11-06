@@ -6,7 +6,7 @@ Shared Python playground — Flask + HTML ek hi `app.py` mein.
 
 <!-- LIVE_URL_START -->
 
-**https://quit-sequences-proteins-fred.trycloudflare.com**
+**https://sharp-hazardous-resolutions-licenses.trycloudflare.com**
 
 <!-- LIVE_URL_END -->
 
