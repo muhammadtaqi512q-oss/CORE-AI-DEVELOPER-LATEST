@@ -6,7 +6,7 @@ Shared Python playground — Flask + HTML ek hi `app.py` mein.
 
 <!-- LIVE_URL_START -->
 
-**https://vacancies-landing-sponsor-rec.trycloudflare.com**
+**https://notebooks-dresses-structural-relative.trycloudflare.com**
 
 <!-- LIVE_URL_END -->
 
