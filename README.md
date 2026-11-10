@@ -6,7 +6,7 @@ Shared Python playground — Flask + HTML ek hi `app.py` mein.
 
 <!-- LIVE_URL_START -->
 
-**https://privilege-que-station-application.trycloudflare.com**
+**https://regulations-treasures-targeted-doc.trycloudflare.com**
 
 <!-- LIVE_URL_END -->
 
